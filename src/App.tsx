@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "./App.css";
 
 type Story = {
@@ -32,11 +32,15 @@ const App = () => {
 		},
 	];
 
+	const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+		console.log(event.target.value);
+	};
+
 	return (
 		<div>
 			<h1>My Hacker Stories</h1>
 
-			<Search />
+			<Search onSearch={handleSearch} />
 
 			<hr />
 
@@ -45,11 +49,17 @@ const App = () => {
 	);
 };
 
-const Search = () => {
-	const [searchTerm, setSearchTerm] = useState("");
+type SearchProps = {
+	onSearch: (event: React.ChangeEvent<HTMLInputElement>) => void;
+};
+
+const Search: React.FC<SearchProps> = (props) => {
+	const [searchTerm, setSearchTerm] = React.useState("");
 
 	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setSearchTerm(event.target.value);
+
+		props.onSearch(event);
 	};
 
 	return (
