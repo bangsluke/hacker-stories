@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import "./App.css";
 
 type Story = {
@@ -45,17 +46,20 @@ const App = () => {
 };
 
 const Search = () => {
+	const [searchTerm, setSearchTerm] = useState("");
+
 	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		// synthetic event
-		console.log(event);
-		// value of target (here: input HTML element)
-		console.log(event.target.value);
+		setSearchTerm(event.target.value);
 	};
 
 	return (
 		<div>
 			<label htmlFor='search'>Search: </label>
 			<input id='search' type='text' onChange={handleChange} />
+
+			<p>
+				Searching for <strong>{searchTerm}</strong>.
+			</p>
 		</div>
 	);
 };
